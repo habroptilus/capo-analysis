@@ -1,11 +1,11 @@
 from sklearn.metrics import accuracy_score
-from fastFM import als
+from fastFM import sgd  # ,als
 import numpy as np
 
 
 class FMClassifier:
     def __init__(self, n_iter, rank, preprocessor):
-        self.model = als.FMClassification(n_iter=n_iter, rank=rank)
+        self.model = sgd.FMClassification(n_iter=n_iter, rank=rank)
         self.preprocessor = preprocessor
 
     def fit(self, X, y):
@@ -28,7 +28,7 @@ class FMClassifier:
          :return e.g. np.array(["+1", "-4", "0",...])
         """
         X = self.preprocessor.preprocess(X, do_sampling=False)
-        pred = self.model.predict(X)
+        pred = self.model.predict_proba(X)
         reshaped = np.reshape(pred, (-1, len(self.preprocessor.dupulication_capo_order)))
         results = []
         for i in range(len(reshaped)):
