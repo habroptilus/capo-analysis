@@ -5,7 +5,7 @@ from numpy.random import randint
 
 
 class CLSPreprocessor:
-    """FMClassifier用のpreprocessor."""
+    """fastFMClassifier用のpreprocessor."""
 
     def __init__(self, dupulication_capo_order):
         self.dupulication_capo_order = dupulication_capo_order
@@ -33,12 +33,15 @@ class CLSPreprocessor:
         """複製したX, yからsamplingする.正例と負例は1:1に"""
         X_dup_pos = X_dup[labels == 1]
         X_dup_neg = X_dup[labels == -1]
-        diff = randint(0, len(self.dupulication_capo_order) - 1, len(X_dup_neg) // (len(self.dupulication_capo_order) - 1))
-        sampled_index = np.array([(len(self.dupulication_capo_order) - 1) * i for i in range(len(X_dup_neg) // (len(self.dupulication_capo_order) - 1))]) + diff
+        diff = randint(0, len(self.dupulication_capo_order) - 1,
+                       len(X_dup_neg) // (len(self.dupulication_capo_order) - 1))
+        sampled_index = np.array([(len(self.dupulication_capo_order) - 1) * i for i in range(
+            len(X_dup_neg) // (len(self.dupulication_capo_order) - 1))]) + diff
         X_dup_neg_sampled = X_dup_neg[sampled_index]
         assert len(X_dup_neg_sampled) == len(X_dup_pos)
         X_sampled = np.concatenate([X_dup_pos, X_dup_neg_sampled])
-        y_sampled = np.concatenate([np.ones(len(X_dup_pos)), -np.ones(len(X_dup_neg_sampled))])
+        y_sampled = np.concatenate(
+            [np.ones(len(X_dup_pos)), -np.ones(len(X_dup_neg_sampled))])
         assert len(X_sampled) == len(y_sampled)
         return self.shuffle_samples(X_sampled, y_sampled)
 
@@ -70,7 +73,8 @@ class CLSPreprocessor:
         """
         :param X: np.arrayでchord featureのみ。複製前.
         """
-        expanded_chord_features = X.repeat(len(self.dupulication_capo_order), axis=0)
+        expanded_chord_features = X.repeat(
+            len(self.dupulication_capo_order), axis=0)
         duplicated_capos = self.duplicate_capos(len(X))
         capo_features = self.capo_onehot_encode(duplicated_capos)
         return np.concatenate([expanded_chord_features, capo_features], 1)
