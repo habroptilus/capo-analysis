@@ -21,3 +21,6 @@ class BaselineModel:
         X_array = test_interactions.toarray()
         predict_mat = self.get_baseline_matrix(test_interactions)
         return csr_matrix(predict_mat * X_array, dtype=np.float32)
+
+    def fit(self, X_train, item_features, epochs):
+        pass

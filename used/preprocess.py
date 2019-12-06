@@ -46,7 +46,7 @@ def remove_empty_string(chord_list):
     return result
 
 
-capo_dict = {"0": "capo0", "+1": "harf_down", "-1": "capo1", "-2": "capo2",
+capo_dict = {"0": "capo0", "+1": "half_down", "-1": "capo1", "-2": "capo2",
              "-3": "capo3", "-4": "capo4", "-5": "capo5", "-6": "capo6", "-7": "capo7",
              "+2": "whole_down"}
 
