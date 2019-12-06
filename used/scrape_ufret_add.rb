@@ -2,7 +2,9 @@
 require 'nokogiri'
 require 'anemone'
 MAIN_URL="http://www.ufret.jp/song.php?data="
-    url=MAIN_URL+"40002"
+
+for num in 1..50000 do
+    url=MAIN_URL+num.to_s
     key=""
     #簡単弾きkey取得
     Anemone.crawl(url, depth_limit: 0) do |anemone|
@@ -23,3 +25,5 @@ MAIN_URL="http://www.ufret.jp/song.php?data="
         end
     end
     print key+"\n"
+end
+    
