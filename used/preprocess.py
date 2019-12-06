@@ -26,7 +26,7 @@ def multiple_replace(text, adict):
 
 
 if __name__ == "__main__":
-    path = "test.txt"
+    path = "data/raw_data_50k.txt"
     with open(path) as f:
         for L in f:
             L = L.rstrip()
