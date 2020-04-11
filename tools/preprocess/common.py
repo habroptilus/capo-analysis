@@ -6,7 +6,7 @@ import random
 
 
 class CommonPreprocessor:
-    def __init__(self, rare_capo_list, test_rate, split_seed):
+    def __init__(self, split_seed, rare_capo_list=[], test_rate=0.2):
         self.rare_capo_list = rare_capo_list
         self.test_rate = test_rate
         self.split_seed = split_seed
