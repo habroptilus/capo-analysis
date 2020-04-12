@@ -1,7 +1,22 @@
 from scipy import sparse
 import numpy as np
-from sklearn.preprocessing import LabelBinarizer
+from sklearn.preprocessing import LabelBinarizer, LabelEncoder
 from numpy.random import randint
+from sklearn.base import TransformerMixin
+
+
+class LabelGenarater(TransformerMixin):
+    """sklearnのLabelEncoderにより、カテゴリ名(string)からクラス名(int)に変換する.(onehotではない)"""
+
+    def __init__(self):
+        self.encoder = LabelEncoder()
+
+    def fit(self, songs):
+        self.encoder.fit([song["rec_capo"] for song in songs])
+        return self
+
+    def transform(self, songs):
+        return self.encoder.transform([song["rec_capo"] for song in songs])
 
 
 class CLSPreprocessor:
